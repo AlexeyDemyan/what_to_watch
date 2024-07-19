@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
@@ -12,6 +13,9 @@ export default function MainScreen({
   return (
     <>
       <section className="film-card">
+      <Helmet>
+        <title>What To Watch</title>
+      </Helmet>
         <div className="film-card__bg">
           <img
             src="img/bg-the-grand-budapest-hotel.jpg"
