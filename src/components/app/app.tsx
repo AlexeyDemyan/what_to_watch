@@ -2,6 +2,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoutes, AuthStatuses } from '../../const';
+import { Movie } from '../../types/movie';
 import {
   SignIn,
   AddReview,
@@ -13,17 +14,18 @@ import {
 } from '../../pages/index';
 
 type AppScreenProps = {
+  movies: Movie[];
   filmCardCount: number;
 };
 
-export default function App({ filmCardCount }: AppScreenProps): JSX.Element {
+export default function App({ movies, filmCardCount }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoutes.Root}
-            element={<MainScreen filmCardCount={filmCardCount} />}
+            element={<MainScreen movies={movies} filmCardCount={filmCardCount} />}
           />
           <Route
             path={AppRoutes.AddReview}
@@ -33,7 +35,9 @@ export default function App({ filmCardCount }: AppScreenProps): JSX.Element {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoutes.SignIn} element={<SignIn />} />
+          <Route path={AppRoutes.SignIn} element={<SignIn onSignIn={() => {
+            throw new Error('Sign in functionality not yet implemented')
+          }} />} />
           <Route path={AppRoutes.Movie} element={<MoviePage />} />
           <Route
             path={AppRoutes.MyList}

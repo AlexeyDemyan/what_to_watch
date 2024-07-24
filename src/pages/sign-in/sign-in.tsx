@@ -1,7 +1,26 @@
+import Footer from '../../components/footer/footer';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
+import { useState, ChangeEvent, FormEvent } from 'react';
 
-export default function SignIn(): JSX.Element {
+type SignInProps = {
+  onSignIn: () => void;
+};
+
+export default function SignIn({ onSignIn }: SignInProps): JSX.Element {
+  const [formData, setFormData] = useState({
+    'user-email': '',
+    'user-password': '',
+  });
+
+  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="user-page">
       <Helmet>
@@ -14,7 +33,14 @@ export default function SignIn(): JSX.Element {
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form
+          action="#"
+          className="sign-in__form"
+          onSubmit={(evt: FormEvent<HTMLFormElement>) => {
+            evt.preventDefault();
+            onSignIn();
+          }}
+        >
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -23,6 +49,8 @@ export default function SignIn(): JSX.Element {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                onChange={handleFieldChange}
+                value={formData['user-email']}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -38,6 +66,8 @@ export default function SignIn(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                onChange={handleFieldChange}
+                value={formData['user-password']}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -54,18 +84,7 @@ export default function SignIn(): JSX.Element {
           </div>
         </form>
       </div>
-      <footer className="page-footer">
-        <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
