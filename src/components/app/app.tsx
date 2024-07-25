@@ -38,7 +38,7 @@ export default function App({ movies, filmCardCount }: AppScreenProps): JSX.Elem
           <Route path={AppRoutes.SignIn} element={<SignIn onSignIn={() => {
             throw new Error('Sign in functionality not yet implemented')
           }} />} />
-          <Route path={AppRoutes.Movie} element={<MoviePage />} />
+          <Route path={`${AppRoutes.Movie}/:id`} element={<MoviePage />} />
           <Route
             path={AppRoutes.MyList}
             element={

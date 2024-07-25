@@ -9,14 +9,14 @@ type SmallFilmCardProps = {
 export default function SmallFilmCard({
   movie,
 }: SmallFilmCardProps): JSX.Element {
-  const { title, imagePath } = movie;
+  const { key, title, imagePath } = movie;
   const navigate = useNavigate();
 
   return (
     <article className="small-film-card catalog__films-card">
       <div
         onClick={() => {
-          navigate(`${AppRoutes.Movie}/${3}`);
+          navigate(`${AppRoutes.Movie}/${key}`);
         }}
         className="small-film-card__image"
       >
