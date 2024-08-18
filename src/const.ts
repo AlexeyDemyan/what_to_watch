@@ -14,3 +14,9 @@ export enum AuthStatuses {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum APIRoute {
+  Movies = '/movies',
+  Login = '/login',
+  Logout = '/logout',
+}
