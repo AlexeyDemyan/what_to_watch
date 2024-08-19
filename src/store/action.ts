@@ -5,7 +5,7 @@ export const chooseGenre = createAction<string>('addGenre');
 
 export const resetGenre = createAction('resetGenre');
 
-export const loadData = createAction<string>('loadData');
+export const loadData = createAction<any>('loadData');
 
 export const requireAuthorization = createAction<AuthStatuses>(
   'requireAuthorization'
