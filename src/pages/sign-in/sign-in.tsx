@@ -2,6 +2,10 @@ import Footer from '../../components/footer/footer';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { loginAction } from '../../store/api-action';
+import { AppRoutes } from '../../const';
 
 type SignInProps = {
   onSignIn: () => void;
