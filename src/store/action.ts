@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AuthStatuses } from '../const';
+import { AuthStatuses, AppRoutes } from '../const';
 
 export const chooseGenre = createAction<string>('addGenre');
 
@@ -16,3 +16,5 @@ export const requireAuthorization = createAction<AuthStatuses>(
 );
 
 export const setError = createAction<string | null>('setError');
+
+export const redirecToRoute = createAction<AppRoutes>('redirecToRoute');

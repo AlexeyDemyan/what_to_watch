@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { useAppSelector } from '../../hooks';
 import PrivateRoute from '../private-route/private-route';
@@ -13,6 +13,8 @@ import {
   Player,
   NotFound,
 } from '../../pages/index';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 // import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppScreenProps = {
@@ -36,7 +38,7 @@ export default function App({
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoutes.Root}
@@ -52,16 +54,7 @@ export default function App({
               </PrivateRoute>
             }
           />
-          <Route
-            path={AppRoutes.SignIn}
-            element={
-              <SignIn
-                onSignIn={() => {
-                  throw new Error('Sign in functionality not yet implemented');
-                }}
-              />
-            }
-          />
+          <Route path={AppRoutes.SignIn} element={<SignIn />} />
           <Route path={`${AppRoutes.Movie}/:id`} element={<MoviePage />} />
           <Route
             path={AppRoutes.MyList}
@@ -74,7 +67,7 @@ export default function App({
           <Route path={AppRoutes.Player} element={<Player />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

@@ -1,28 +1,27 @@
 import Footer from '../../components/footer/footer';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
-import { useState, ChangeEvent, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-action';
-import { AppRoutes } from '../../const';
 
-type SignInProps = {
-  onSignIn: () => void;
-};
+export default function SignIn(): JSX.Element {
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
-export default function SignIn({ onSignIn }: SignInProps): JSX.Element {
-  const [formData, setFormData] = useState({
-    'user-email': '',
-    'user-password': '',
-  });
+  const dispatch = useAppDispatch();
 
-  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = evt.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      dispatch(
+        loginAction({
+          login: loginRef.current.value,
+          password: passwordRef.current.value,
+        })
+      );
+    }
   };
 
   return (
@@ -37,24 +36,16 @@ export default function SignIn({ onSignIn }: SignInProps): JSX.Element {
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
-        <form
-          action="#"
-          className="sign-in__form"
-          onSubmit={(evt: FormEvent<HTMLFormElement>) => {
-            evt.preventDefault();
-            onSignIn();
-          }}
-        >
+        <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
+                ref={loginRef}
                 className="sign-in__input"
                 type="email"
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
-                onChange={handleFieldChange}
-                value={formData['user-email']}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -65,13 +56,12 @@ export default function SignIn({ onSignIn }: SignInProps): JSX.Element {
             </div>
             <div className="sign-in__field">
               <input
+                ref={passwordRef}
                 className="sign-in__input"
                 type="password"
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
-                onChange={handleFieldChange}
-                value={formData['user-password']}
               />
               <label
                 className="sign-in__label visually-hidden"
