@@ -1,7 +1,5 @@
 export const tempCardCount = 9;
 
-export const TIMEOUT_SHOW_ERROR = 2000;
-
 export enum AppRoutes {
   Root = '/',
   AddReview = '/addreview',

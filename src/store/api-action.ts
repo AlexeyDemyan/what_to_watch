@@ -5,7 +5,6 @@ import { AppDispatch, State } from '../types/state';
 import {
   loadData,
   requireAuthorization,
-  setError,
   setDataLoadingStatus,
   redirecToRoute,
 } from './action';
@@ -14,15 +13,9 @@ import {
   APIRoute,
   AuthStatuses,
   AppRoutes,
-  TIMEOUT_SHOW_ERROR,
 } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
-import { store } from './';
-
-export const clearErrorAction = createAsyncThunk('clearError', () => {
-  setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
-});
 
 export const fetchMovieAction = createAsyncThunk<
   void,

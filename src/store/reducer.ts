@@ -4,7 +4,6 @@ import {
   resetGenre,
   loadData,
   requireAuthorization,
-  setError,
   setDataLoadingStatus,
 } from './action';
 import { AuthStatuses } from '../const';
@@ -14,7 +13,6 @@ type InitialState = {
   films: any;
   authorizationStatus: AuthStatuses;
   isDataLoading: boolean;
-  error: string | null;
 };
 
 const initialState: InitialState = {
@@ -22,7 +20,6 @@ const initialState: InitialState = {
   films: '',
   authorizationStatus: AuthStatuses.Unknown,
   isDataLoading: false,
-  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -38,9 +35,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     })
     .addCase(setDataLoadingStatus, (state, action) => {
       state.isDataLoading = action.payload;
